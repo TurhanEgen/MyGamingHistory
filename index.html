@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oyun Geçmişim — 2001–2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f5f7;
+  --bg-white: #ffffff;
+  --text: #1a1a2e;
+  --text-m: #6b7280;
+  --text-l: #9ca3af;
+  --border: #e5e7eb;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lg: 0 4px 24px rgba(0,0,0,0.08);
+  --font: 'Inter', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --cat-digital: #10B981;
+  --cat-digital-bg: rgba(16,185,129,0.06);
+  --cat-digital-bdr: rgba(16,185,129,0.15);
+  --cat-ttrpg: #8B5CF6;
+  --cat-ttrpg-bg: rgba(139,92,246,0.06);
+  --cat-ttrpg-bdr: rgba(139,92,246,0.15);
+  --cat-board: #EC4899;
+  --cat-board-bg: rgba(236,72,153,0.06);
+  --cat-board-bdr: rgba(236,72,153,0.15);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;line-height:1.5}
+::selection{background:#8B5CF6;color:#fff}
+
+.hero {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 25%, #4c1d95 50%, #6d28d9 75%, #7c3aed 100%);
+  padding: 48px 24px 56px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';position: absolute;inset: 0;
+  background: radial-gradient(ellipse at 30% 20%, rgba(139,92,246,0.3) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 80%, rgba(236,72,153,0.2) 0%, transparent 60%);
+}
+.hero * { position: relative; z-index: 1; }
+.hero-icon { font-size: 2.4rem; margin-bottom: 8px; }
+.hero h1 { font-size: 2.8rem; font-weight: 800; color: #fff; letter-spacing: -0.03em; line-height: 1.1; }
+.hero .sub { margin-top: 8px; color: rgba(255,255,255,0.65); font-size: 0.95rem; }
+
+.stats-row { display: flex; justify-content: center; gap: 12px; margin-top: 32px; flex-wrap: wrap; max-width: 800px; margin-left: auto; margin-right: auto; }
+.stat-card { background: rgba(255,255,255,0.08); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius); padding: 16px 28px; min-width: 130px; text-align: left; }
+.stat-card .stat-icon { font-size: 1.1rem; margin-bottom: 4px; }
+.stat-card .stat-val { font-size: 1.9rem; font-weight: 800; color: #fff; line-height: 1; }
+.stat-card .stat-val.green { color: #34D399; }
+.stat-card .stat-val.purple { color: #C4B5FD; }
+.stat-card .stat-val.pink { color: #F9A8D4; }
+.stat-card .stat-label { font-size: 0.72rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; font-weight: 500; }
+
+.export-row { display: flex; justify-content: center; gap: 10px; margin-top: 24px; }
+.btn-export { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.8); font-size: 0.8rem; font-weight: 500; cursor: pointer; font-family: var(--font); transition: all .2s; }
+.btn-export:hover { background: rgba(255,255,255,0.18); color: #fff; }
+.btn-export:active { transform: scale(0.97); }
+.btn-export svg { width: 14px; height: 14px; }
+
+.main { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
+.section-title { font-size: 1.6rem; font-weight: 700; text-align: center; margin-bottom: 6px; }
+.section-sub { text-align: center; color: var(--text-m); font-size: 0.88rem; margin-bottom: 32px; }
+
+.timeline-track { position: relative; overflow-x: auto; padding: 0 0 20px; }
+.timeline-track::-webkit-scrollbar { height: 4px; }
+.timeline-track::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 2px; }
+.tl-inner { position: relative; min-width: 900px; padding: 0 20px; }
+
+.year-axis { display: flex; position: relative; height: 32px; align-items: flex-end; }
+.year-axis::before { content: ''; position: absolute; left: 0; right: 0; bottom: 10px; height: 2px; background: #d1d5db; border-radius: 1px; }
+.ya-tick { position: absolute; transform: translateX(-50%); font-family: var(--mono); font-size: 0.68rem; color: var(--text-l); font-weight: 500; bottom: 0; }
+.ya-dot { position: absolute; transform: translateX(-50%); bottom: 8px; width: 6px; height: 6px; border-radius: 50%; background: #d1d5db; }
+.ya-dot.major { width: 8px; height: 8px; bottom: 7px; background: #9ca3af; }
+
+.era-rows { margin-bottom: 12px; display: flex; flex-direction: column; gap: 8px; }
+.era-bar-row { position: relative; height: 52px; }
+.era-bar {
+  position: absolute; height: 52px; border-radius: 10px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  cursor: pointer; transition: all .25s cubic-bezier(.4,0,.2,1);
+  overflow: hidden; border: 2px solid transparent;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.era-bar:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+.era-bar.selected { border-color: var(--text); box-shadow: 0 0 0 3px rgba(0,0,0,0.08), 0 6px 20px rgba(0,0,0,0.12); transform: translateY(-2px); }
+.era-bar .era-years-label { font-size: 0.68rem; font-weight: 600; color: rgba(255,255,255,0.85); }
+.era-bar .era-name-label { font-size: 0.82rem; font-weight: 700; color: #fff; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 90%; text-align: center; }
+.era-bar .era-count { font-size: 0.65rem; color: rgba(255,255,255,0.65); font-weight: 500; }
+
+.detail-section { margin-top: 40px; animation: fadeUp .4s ease; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+.detail-header { margin-bottom: 24px; }
+.detail-badge { display: inline-block; padding: 5px 16px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
+.detail-title { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+.detail-desc { font-size: 0.92rem; color: var(--text-m); line-height: 1.65; max-width: 700px; }
+
+.cat-block { background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 16px; box-shadow: var(--shadow); }
+.cat-block-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.cat-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+.cat-block-title { font-size: 1.05rem; font-weight: 700; }
+.cat-block-title span { font-weight: 500; color: var(--text-l); }
+
+.game-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+@media (max-width: 768px) { .game-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .game-grid { grid-template-columns: 1fr; } }
+
+.game-card {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 14px; border-radius: 10px; border: 1px solid;
+  font-size: 0.85rem; font-weight: 500;
+  transition: all .15s ease; cursor: default; min-height: 44px;
+}
+.game-card:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+.game-card.digital { background: var(--cat-digital-bg); border-color: var(--cat-digital-bdr); color: var(--cat-digital); }
+.game-card.ttrpg { background: var(--cat-ttrpg-bg); border-color: var(--cat-ttrpg-bdr); color: var(--cat-ttrpg); }
+.game-card.board { background: var(--cat-board-bg); border-color: var(--cat-board-bdr); color: var(--cat-board); }
+.game-card .star { font-size: 0.75rem; flex-shrink: 0; }
+
+.no-selection { text-align: center; padding: 60px 20px; color: var(--text-l); font-size: 0.95rem; }
+.no-selection .ns-icon { font-size: 2rem; margin-bottom: 8px; }
+
+.legend-row { display: flex; justify-content: center; gap: 24px; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--text-m); }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+@media (max-width: 640px) {
+  .hero h1 { font-size: 2rem; }
+  .stats-row { gap: 8px; }
+  .stat-card { padding: 12px 18px; min-width: 100px; }
+  .stat-card .stat-val { font-size: 1.4rem; }
+  .detail-title { font-size: 1.4rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-icon">🎮</div>
+  <h1>Oyun Geçmişim</h1>
+  <div class="sub">2001 – 2026 · 25 Yıllık Bir Yolculuk</div>
+  <div class="stats-row" id="stats-row"></div>
+  <div class="export-row">
+    <button class="btn-export" onclick="exportJSON()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>JSON</button>
+    <button class="btn-export" onclick="exportPNG()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>PNG</button>
+  </div>
+</div>
+
+<div class="main" id="main-content">
+  <div class="section-title">Zaman Çizelgesi</div>
+  <div class="section-sub">Bir döneme tıklayarak detayları görün</div>
+  <div class="timeline-track">
+    <div class="tl-inner" id="tl-inner">
+      <div class="era-rows" id="era-rows"></div>
+      <div class="year-axis" id="year-axis"></div>
+    </div>
+  </div>
+  <div id="detail-area"><div class="no-selection"><div class="ns-icon">👆</div>Bir dönem seçin</div></div>
+  <div class="legend-row">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-digital)"></div>Digital</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-ttrpg)"></div>TTRPG</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-board)"></div>Board Game</div>
+  </div>
+</div>
+
+<script>
+const START=2001, END=2026, SPAN=END-START;
+
+const ERAS = [
+  {
+    id:'hayal', name:'Hayalperest', start:2001, end:2009,
+    gradient:'linear-gradient(135deg, #F59E0B 0%, #F97316 100%)', color:'#F59E0B',
+    desc:'Kendi kendime oyuncaklarımla dünyalar kurduğum, hayal gücümün maksimum seviyede olduğu dönem. Sürekli olarak farklı dünyalarda hayalperest bir çocuk olarak yaşadım.',
+    games:[]
+  },
+  {
+    id:'inet', name:'Dijital Dünya ile Tanışma – İnternet Kafe Çağı', start:2009, end:2014,
+    gradient:'linear-gradient(135deg, #06B6D4 0%, #0EA5E9 100%)', color:'#06B6D4',
+    desc:'Kendi başıma kurduğum oyunları kenara attığımızda dijital oyunlarla ilk kez internet kafede ve annemlerin iş yerindeki bilgisayarla tanıştım.',
+    games:[
+      {n:'Age of Empires 2',c:'digital'},
+      {n:"Assassin's Creed",c:'digital'},
+      {n:"Assassin's Creed II",c:'digital'},
+      {n:"Assassin's Creed III",c:'digital'},
+      {n:"Assassin's Creed IV: Black Flag",c:'digital'},
+      {n:"Assassin's Creed: Brotherhood",c:'digital'},
+      {n:'Call of Duty serisi',c:'digital'},
+      {n:'CS 1.5',c:'digital'},
+      {n:'CS 1.6',c:'digital'},
+      {n:'GTA San Andreas',c:'digital',star:true},
+      {n:'GTA Türk',c:'digital'},
+      {n:'GTA Vice City',c:'digital'},
+      {n:'Metin 2',c:'digital'},
+      {n:'Minecraft',c:'digital',star:true},
+      {n:'Prototype 1',c:'digital'},
+      {n:'Prototype 2',c:'digital'},
+      {n:'Red Dead Redemption',c:'digital'},
+      {n:'The Elder Scrolls IV: Oblivion',c:'digital'},
+      {n:'Warcraft 3',c:'digital'},
+    ]
+  },
+  {
+    id:'pc', name:'Lise & İlk Bilgisayar – PC Gaming', start:2014, end:2026,
+    gradient:'linear-gradient(135deg, #10B981 0%, #34D399 100%)', color:'#10B981',
+    desc:"Liseye geçiş ve ilk bilgisayarımı almam ile birlikte vaktimin yoğun bölümünü bilgisayarda geçirmeye başladım. Competitive oyunlara dalış, Steam, ve çok farklı genre'lardan oyunlar.",
+    games:[
+      {n:'911 Operator',c:'digital'},
+      {n:"Assassin's Creed Odyssey",c:'digital'},
+      {n:"Assassin's Creed Valhalla",c:'digital'},
+      {n:'Avowed',c:'digital'},
+      {n:"Baldur's Gate 3",c:'digital',star:true},
+      {n:"Baldur's Gate II",c:'digital'},
+      {n:'Batman: Arkham City',c:'digital'},
+      {n:'Batman: Arkham Knight',c:'digital'},
+      {n:'Batman: Arkham Origins',c:'digital'},
+      {n:'BioShock Infinite',c:'digital'},
+      {n:'Black Desert Online',c:'digital'},
+      {n:'Brawlhalla',c:'digital'},
+      {n:'Brotato',c:'digital'},
+      {n:'Chained Together',c:'digital'},
+      {n:'Civilization V',c:'digital'},
+      {n:'Clair Obscur: Expedition 33',c:'digital',star:true},
+      {n:'Counter-Strike: Global Offensive',c:'digital'},
+      {n:'Cult of the Lamb',c:'digital'},
+      {n:'Cyberpunk 2077',c:'digital'},
+      {n:'Dark and Darker',c:'digital'},
+      {n:'Dark Souls',c:'digital'},
+      {n:'Dark Souls II',c:'digital',star:true},
+      {n:'Dark Souls III',c:'digital',star:true},
+      {n:'Darkest Dungeon',c:'digital',star:true},
+      {n:'Darkest Dungeon 2',c:'digital'},
+      {n:'Dead Island',c:'digital'},
+      {n:'Diablo III',c:'digital'},
+      {n:'Diablo IV',c:'digital'},
+      {n:'Disco Elysium',c:'digital'},
+      {n:'Dispatch',c:'digital'},
+      {n:'Divinity: Original Sin 2',c:'digital',star:true},
+      {n:"Don't Starve",c:'digital'},
+      {n:"Don't Starve Together",c:'digital'},
+      {n:'Dota 2',c:'digital'},
+      {n:'Dying Light',c:'digital'},
+      {n:'Elden Ring',c:'digital'},
+      {n:'Enshrouded',c:'digital'},
+      {n:'Europa Universalis IV',c:'digital',star:true},
+      {n:'Fallout 4',c:'digital'},
+      {n:'Fallout: New Vegas',c:'digital',star:true},
+      {n:'God of War',c:'digital'},
+      {n:'Hearthstone',c:'digital'},
+      {n:'Help Will Come Tomorrow',c:'digital'},
+      {n:'Hitman Absolution',c:'digital'},
+      {n:'Hunt: Showdown',c:'digital'},
+      {n:'League of Legends',c:'digital',star:true},
+      {n:'Left 4 Dead 2',c:'digital'},
+      {n:'Lost Ark',c:'digital'},
+      {n:'Magicka 2',c:'digital'},
+      {n:'Magicka Wizard Wars',c:'digital'},
+      {n:'Megabonk',c:'digital'},
+      {n:'Metal Gear Solid V',c:'digital'},
+      {n:'Monster Hunter: World',c:'digital'},
+      {n:'No More Room In Hell',c:'digital'},
+      {n:'No Rest for the Wicked',c:'digital'},
+      {n:'Ori and the Will of the Wisps',c:'digital'},
+      {n:'Overwatch',c:'digital'},
+      {n:'Path of Exile',c:'digital'},
+      {n:'Path of Exile 2',c:'digital'},
+      {n:'Payday 2',c:'digital'},
+      {n:'Portal 2',c:'digital'},
+      {n:'Project Zomboid',c:'digital'},
+      {n:'Punch Club',c:'digital'},
+      {n:'Red Dead Redemption 2',c:'digital'},
+      {n:'Resident Evil Village',c:'digital'},
+      {n:'RimWorld',c:'digital'},
+      {n:'Roguelands',c:'digital'},
+      {n:'Rust',c:'digital'},
+      {n:'Shadow of Mordor',c:'digital'},
+      {n:'Shadow of War',c:'digital'},
+      {n:'Slay the Spire',c:'digital'},
+      {n:'SpeedRunners',c:'digital',star:true},
+      {n:'Starbound',c:'digital'},
+      {n:'Stardew Valley',c:'digital'},
+      {n:'Stonehearth',c:'digital'},
+      {n:'Tainted Grail: Fall of Avalon',c:'digital'},
+      {n:'Terraria',c:'digital'},
+      {n:'The Elder Scrolls V: Skyrim',c:'digital',star:true},
+      {n:'The Last of Us Part I',c:'digital'},
+      {n:'The Stanley Parable',c:'digital'},
+      {n:'This War of Mine',c:'digital'},
+      {n:'To the Moon',c:'digital'},
+      {n:'Tomb Raider',c:'digital'},
+      {n:'Transformice',c:'digital'},
+      {n:'Tribes of Midgard',c:'digital'},
+      {n:'Trove',c:'digital'},
+      {n:'Unturned',c:'digital'},
+      {n:'V Rising',c:'digital'},
+      {n:'Vampire Survivors',c:'digital',star:true},
+      {n:'Warframe',c:'digital'},
+      {n:'Witcher 2: Assassins of Kings',c:'digital'},
+      {n:'Witcher 3: Wild Hunt',c:'digital',star:true},
+      {n:'XCOM 2',c:'digital',star:true},
+      {n:'Yu-Gi-Oh! Duel Links',c:'digital'},
+    ]
+  },
+  {
+    id:'ttrpg', name:'TTRPG Keşfi', start:2016, end:2026,
+    gradient:'linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%)', color:'#8B5CF6',
+    desc:'Lise döneminde Dungeons and Dragons ile tanışma. Arkadaşlarımla farklı hikayeler, farklı sistemler. O ufak hayalperest çocuk bu şekilde geri döndü. Yıllarca kendimi adadığım bir iş oldu adeta.',
+    games:[
+      {n:'Call of Cthulhu',c:'ttrpg'},
+      {n:'D&D 5e (2024 revision)',c:'ttrpg'},
+      {n:'Daggerheart',c:'ttrpg'},
+      {n:'Dungeons & Dragons 5e',c:'ttrpg'},
+      {n:'Kingkiller Chronicles (homebrew)',c:'ttrpg'},
+      {n:'LotR (homebrew)',c:'ttrpg'},
+      {n:'Naruto (homebrew)',c:'ttrpg'},
+      {n:'Pathfinder 1e',c:'ttrpg'},
+      {n:'World of Darkness',c:'ttrpg'},
+    ]
+  },
+  {
+    id:'board', name:'Kutu Oyunları – Üniversite Dönemi', start:2019, end:2026,
+    gradient:'linear-gradient(135deg, #EC4899 0%, #F472B6 100%)', color:'#EC4899',
+    desc:"Kutu oyunlarıyla tanışmam üniversiteye geçmem ile oldu. İstanbul'daki Goblin benzeri kafelerin sayesinde kutu oyunu düzenli bir etkinlik haline geldi.",
+    games:[
+      {n:'Arkham Horror: Card Game',c:'board'},
+      {n:'Art Robbery',c:'board'},
+      {n:'Bang!',c:'board'},
+      {n:'Carcassonne',c:'board'},
+      {n:'Catan',c:'board'},
+      {n:'Clank!: Catacombs',c:'board'},
+      {n:'Codenames',c:'board'},
+      {n:"Darwin's Journey",c:'board'},
+      {n:'Deep Sea Adventure',c:'board'},
+      {n:'Dune: Imperium',c:'board'},
+      {n:'Dune: Imperium — Uprising',c:'board'},
+      {n:'Epik Büyü Savaşları 1 & 2',c:'board'},
+      {n:'Everdell',c:'board'},
+      {n:'Everdell: Silverfrost',c:'board'},
+      {n:'Hegemony',c:'board'},
+      {n:'Hive',c:'board'},
+      {n:'Kingdom Builder',c:'board'},
+      {n:'Mage Knight',c:'board'},
+      {n:'Munchkin',c:'board'},
+      {n:'Nemesis',c:'board'},
+      {n:'Nemesis: Lockdown',c:'board'},
+      {n:'Nine Tiles Panic',c:'board'},
+      {n:'Odin',c:'board'},
+      {n:'Root + Riverfolk',c:'board'},
+      {n:'Sagrada',c:'board'},
+      {n:'Scout',c:'board'},
+      {n:'Secret Hitler',c:'board'},
+      {n:'Sleeping Gods',c:'board'},
+      {n:'Sleeping Queens',c:'board'},
+      {n:'Spirit Island',c:'board'},
+      {n:'Splendor',c:'board'},
+      {n:'Star Wars: Deckbuilding',c:'board'},
+      {n:'Star Wars: Rebellion',c:'board'},
+      {n:'Subterra',c:'board'},
+      {n:'Terra Mystica',c:'board'},
+      {n:'Terraforming Mars',c:'board'},
+      {n:'Ticket to Ride: Europe',c:'board'},
+      {n:'Too Many Bones',c:'board'},
+      {n:'Twilight Imperium 4e',c:'board'},
+      {n:'Unmatched',c:'board'},
+      {n:'War of the Ring 2e',c:'board'},
+      {n:'Wingspan',c:'board'},
+      {n:'Wyrmspan',c:'board'},
+    ]
+  },
+];
+
+let selected = null;
+
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function pct(y){ return ((y - START) / SPAN) * 100; }
+
+function renderStats(){
+  let total=0,dc=0,tc=0,bc=0;
+  ERAS.forEach(e=>e.games.forEach(g=>{total++;if(g.c==='digital')dc++;else if(g.c==='ttrpg')tc++;else bc++;}));
+  document.getElementById('stats-row').innerHTML=`
+    <div class="stat-card"><div class="stat-icon">📅</div><div class="stat-val">${SPAN+1}</div><div class="stat-label">Yıl</div></div>
+    <div class="stat-card"><div class="stat-icon">🏆</div><div class="stat-val">${ERAS.length}</div><div class="stat-label">Dönem</div></div>
+    <div class="stat-card"><div class="stat-icon">🖥️</div><div class="stat-val green">${dc}</div><div class="stat-label">Dijital</div></div>
+    <div class="stat-card"><div class="stat-icon">🎲</div><div class="stat-val purple">${tc}</div><div class="stat-label">TTRPG</div></div>
+    <div class="stat-card"><div class="stat-icon">♟️</div><div class="stat-val pink">${bc}</div><div class="stat-label">Board</div></div>`;
+}
+
+function renderTimeline(){
+  const axEl=document.getElementById('year-axis');
+  let axH='';
+  for(let y=START;y<=END;y++){
+    const p=pct(y);const major=(y-START)%5===0;
+    axH+=`<div class="ya-dot${major?' major':''}" style="left:${p}%"></div>`;
+    if(major||y===END) axH+=`<div class="ya-tick" style="left:${p}%">${y}</div>`;
+  }
+  axEl.innerHTML=axH;
+
+  const rowsEl=document.getElementById('era-rows');
+  let rH='';
+  ERAS.forEach((era,i)=>{
+    const left=pct(era.start);
+    const width=((era.end-era.start)/SPAN)*100;
+    const gc=era.games.length;
+    rH+=`<div class="era-bar-row"><div class="era-bar${selected===i?' selected':''}" style="left:${left}%;width:${width}%;background:${era.gradient}" onclick="selectEra(${i})">`;
+    rH+=`<span class="era-years-label">${era.start} – ${era.end}</span>`;
+    rH+=`<span class="era-name-label">${esc(era.name)}</span>`;
+    if(gc) rH+=`<span class="era-count">${gc} oyun</span>`;
+    rH+=`</div></div>`;
+  });
+  rowsEl.innerHTML=rH;
+}
+
+function selectEra(idx){
+  selected=(selected===idx)?null:idx;
+  renderTimeline();renderDetail();
+  if(selected!==null) document.getElementById('detail-area').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function renderDetail(){
+  const area=document.getElementById('detail-area');
+  if(selected===null){area.innerHTML=`<div class="no-selection"><div class="ns-icon">👆</div>Bir dönem seçin</div>`;return;}
+  const era=ERAS[selected];
+  const catI={digital:'🖥️',ttrpg:'🎲',board:'♟️'};
+  const catL={digital:'Digital',ttrpg:'TTRPG',board:'Board Games'};
+  const catC={digital:'var(--cat-digital)',ttrpg:'var(--cat-ttrpg)',board:'var(--cat-board)'};
+  const catB={digital:'rgba(16,185,129,0.1)',ttrpg:'rgba(139,92,246,0.1)',board:'rgba(236,72,153,0.1)'};
+
+  let h=`<div class="detail-section"><div class="detail-header">`;
+  h+=`<div class="detail-badge" style="background:${era.gradient}">${era.start} – ${era.end}</div>`;
+  h+=`<div class="detail-title">${esc(era.name)}</div>`;
+  h+=`<div class="detail-desc">${esc(era.desc)}</div></div>`;
+
+  if(!era.games.length){
+    h+=`<div style="padding:32px;text-align:center;color:var(--text-l);font-size:0.9rem;border:1px dashed var(--border);border-radius:var(--radius-lg)">Bu dönemde hayal gücü vardı, dijital oyun yoktu ✨</div>`;
+  } else {
+    const groups={};era.games.forEach(g=>{if(!groups[g.c])groups[g.c]=[];groups[g.c].push(g);});
+    ['digital','ttrpg','board'].forEach(cat=>{
+      if(!groups[cat])return;
+      h+=`<div class="cat-block"><div class="cat-block-header"><div class="cat-icon" style="background:${catB[cat]}">${catI[cat]}</div><div class="cat-block-title" style="color:${catC[cat]}">${catL[cat]} <span>(${groups[cat].length})</span></div></div><div class="game-grid">`;
+      groups[cat].forEach(g=>{
+        const s=g.star?`<span class="star">⭐</span>`:'';
+        h+=`<div class="game-card ${cat}">${s}${esc(g.n)}</div>`;
+      });
+      h+=`</div></div>`;
+    });
+  }
+  h+=`</div>`;area.innerHTML=h;
+}
+
+function exportJSON(){
+  const blob=new Blob([JSON.stringify(ERAS,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=`oyun-gecmisim-${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(a.href);
+}
+function exportPNG(){
+  const s=document.createElement('script');
+  s.src='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+  s.onload=()=>{
+    const orig=selected;const area=document.getElementById('detail-area');
+    let allH='';
+    const catI={digital:'🖥️',ttrpg:'🎲',board:'♟️'},catL={digital:'Digital',ttrpg:'TTRPG',board:'Board Games'},catC={digital:'var(--cat-digital)',ttrpg:'var(--cat-ttrpg)',board:'var(--cat-board)'},catB={digital:'rgba(16,185,129,0.1)',ttrpg:'rgba(139,92,246,0.1)',board:'rgba(236,72,153,0.1)'};
+    ERAS.forEach(era=>{
+      allH+=`<div style="margin-bottom:32px"><div class="detail-header"><div class="detail-badge" style="background:${era.gradient}">${era.start} – ${era.end}</div><div class="detail-title">${esc(era.name)}</div><div class="detail-desc">${esc(era.desc)}</div></div>`;
+      if(!era.games.length){allH+=`<div style="padding:20px;text-align:center;color:var(--text-l)">✨</div>`;}
+      else{const groups={};era.games.forEach(g=>{if(!groups[g.c])groups[g.c]=[];groups[g.c].push(g);});
+        ['digital','ttrpg','board'].forEach(cat=>{if(!groups[cat])return;
+          allH+=`<div class="cat-block"><div class="cat-block-header"><div class="cat-icon" style="background:${catB[cat]}">${catI[cat]}</div><div class="cat-block-title" style="color:${catC[cat]}">${catL[cat]} <span>(${groups[cat].length})</span></div></div><div class="game-grid">`;
+          groups[cat].forEach(g=>{allH+=`<div class="game-card ${cat}">${g.star?'<span class="star">⭐</span>':''}${esc(g.n)}</div>`;});
+          allH+=`</div></div>`;});
+      }allH+=`</div>`;
+    });
+    area.innerHTML=allH;
+    setTimeout(()=>{
+      html2canvas(document.body,{backgroundColor:'#f5f5f7',scale:2,scrollY:-window.scrollY,useCORS:true,width:document.body.scrollWidth,height:document.body.scrollHeight}).then(c=>{
+        const a=document.createElement('a');a.href=c.toDataURL('image/png');
+        a.download=`oyun-gecmisim-${new Date().toISOString().slice(0,10)}.png`;a.click();
+        selected=orig;renderDetail();
+      });
+    },300);
+  };document.head.appendChild(s);
+}
+
+renderStats();renderTimeline();renderDetail();
+</script>
+</body>
+</html>
